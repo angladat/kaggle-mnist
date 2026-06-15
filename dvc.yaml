@@ -28,3 +28,14 @@ stages:
       - data/raw
     outs:
       - data/saved
+
+  split_data:
+    cmd: uv run python3 src/stages/split_data.py --config=params.yaml
+    params:
+      - data
+      - split
+    deps:
+      - src/stages/split_data.py
+      - data/saved
+    outs:
+      - data/splits

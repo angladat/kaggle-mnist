@@ -71,3 +71,33 @@ stages:
       md5: fd84325a30e125e896c7001bec58d0dd.dir
       size: 19258482
       nfiles: 70000
+  split_data:
+    cmd: uv run python3 src/stages/split_data.py --config=params.yaml
+    deps:
+    - path: data/saved
+      hash: md5
+      md5: fd84325a30e125e896c7001bec58d0dd.dir
+      size: 19258482
+      nfiles: 70000
+    - path: src/stages/split_data.py
+      hash: md5
+      md5: 10b792b992329af748c90e5c6d9f5721
+      size: 2661
+    params:
+      params.yaml:
+        data:
+          root: data
+          raw: data/raw
+          saved: data/saved
+          processed: data/processed
+          splits: data/splits
+        split:
+          seed: 42
+          val_size: 0.15
+          test_size: 0.15
+    outs:
+    - path: data/splits
+      hash: md5
+      md5: 4803a7f15a02d267ac1bf0b7f11bc447.dir
+      size: 11557003
+      nfiles: 42000
