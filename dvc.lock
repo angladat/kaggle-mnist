@@ -19,3 +19,27 @@ stages:
       hash: md5
       md5: 7165d178a68f36d4002b7c0cf38c4324
       size: 16054568
+  unzip_data:
+    cmd: uv run python3 src/stages/unzip_data.py --config=params.yaml
+    deps:
+    - path: data/digit-recognizer.zip
+      hash: md5
+      md5: 7165d178a68f36d4002b7c0cf38c4324
+      size: 16054568
+    - path: src/stages/unzip_data.py
+      hash: md5
+      md5: a1b0b5395cfeb2679851f3ad04a2a13d
+      size: 913
+    params:
+      params.yaml:
+        data:
+          root: data
+          raw: data/raw
+          processed: data/processed
+          splits: data/splits
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: 8daaa1f9a8ca03fe219dc2b3f5882ff5.dir
+      size: 128134246
+      nfiles: 3

@@ -8,3 +8,13 @@ stages:
       - src/stages/download_data.py
     outs:
       - data/digit-recognizer.zip
+
+  unzip_data:
+    cmd: uv run python3 src/stages/unzip_data.py --config=params.yaml
+    params:
+      - data
+    deps:
+      - src/stages/unzip_data.py
+      - data/digit-recognizer.zip
+    outs:
+      - data/raw
