@@ -7,5 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "dvc>=3.67.1",
     "kaggle>=2.2.1",
+    "numpy>=2.4.6",
+    "pillow>=12.2.0",
     "python-dotenv>=1.2.2",
 ]

@@ -1,5 +1,6 @@
 data:
   root: data
   raw: data/raw
+  saved: data/saved
   processed: data/processed
   splits: data/splits

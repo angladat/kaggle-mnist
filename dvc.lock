@@ -12,6 +12,7 @@ stages:
         data:
           root: data
           raw: data/raw
+          saved: data/saved
           processed: data/processed
           splits: data/splits
     outs:
@@ -35,6 +36,7 @@ stages:
         data:
           root: data
           raw: data/raw
+          saved: data/saved
           processed: data/processed
           splits: data/splits
     outs:
@@ -43,3 +45,29 @@ stages:
       md5: 8daaa1f9a8ca03fe219dc2b3f5882ff5.dir
       size: 128134246
       nfiles: 3
+  save_images:
+    cmd: uv run python3 src/stages/save_images.py --config=params.yaml
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 8daaa1f9a8ca03fe219dc2b3f5882ff5.dir
+      size: 128134246
+      nfiles: 3
+    - path: src/stages/save_images.py
+      hash: md5
+      md5: e3fad902df5637761a02120bbe2d77bf
+      size: 2159
+    params:
+      params.yaml:
+        data:
+          root: data
+          raw: data/raw
+          saved: data/saved
+          processed: data/processed
+          splits: data/splits
+    outs:
+    - path: data/saved
+      hash: md5
+      md5: fd84325a30e125e896c7001bec58d0dd.dir
+      size: 19258482
+      nfiles: 70000

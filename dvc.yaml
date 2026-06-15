@@ -18,3 +18,13 @@ stages:
       - data/digit-recognizer.zip
     outs:
       - data/raw
+
+  save_images:
+    cmd: uv run python3 src/stages/save_images.py --config=params.yaml
+    params:
+      - data
+    deps:
+      - src/stages/save_images.py
+      - data/raw
+    outs:
+      - data/saved
