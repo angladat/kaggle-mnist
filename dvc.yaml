@@ -1,0 +1,10 @@
+stages:
+
+  download_data:
+    cmd: uv run python3 src/stages/download_data.py --config=params.yaml
+    params:
+      - data
+    deps:
+      - src/stages/download_data.py
+    outs:
+      - data/digit-recognizer.zip
