@@ -7,14 +7,14 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 
-from src.data import get_default_transform
+from src.transforms import get_test_transform
 from src.models import load_config_model
 
 
 class KaggleTestDataset(Dataset):
     def __init__(self, test_path: Path) -> None:
         self.image_paths = sorted(test_path.rglob("*.png"))
-        self.transform = get_default_transform()
+        self.transform = get_test_transform()
 
     def __len__(self) -> int:
         return len(self.image_paths)

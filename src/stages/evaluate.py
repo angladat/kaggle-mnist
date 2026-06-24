@@ -6,7 +6,8 @@ import json
 import torch
 import torch.nn as nn
 
-from src.data import get_loader, get_default_transform
+from src.data import get_loader
+from src.transforms import get_test_transform
 from src.models import load_config_model
 from src.train import Trainer
 
@@ -24,7 +25,7 @@ def evaluate(config_path: str) -> None:
     splits_dir = Path(config['data']['splits'])
     test_loader = get_loader(
         split_path=splits_dir/ "test",
-        transform=get_default_transform(),
+        transform=get_test_transform(),
         batch_size=config['train']['batch_size'],
     )
 

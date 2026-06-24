@@ -6,17 +6,6 @@ from torchvision import datasets, transforms
 from PIL import Image
 
 
-def get_default_transform() -> transforms.Compose:
-    return transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=(0.1307,),
-                std=(0.3081,),
-            )
-        ]
-    )
-
-
 def grayscale_loader(path: str) -> Image.Image:
     with open(path, "rb") as image_file:
         return Image.open(image_file).convert("L")

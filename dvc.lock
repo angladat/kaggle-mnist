@@ -111,8 +111,12 @@ stages:
       nfiles: 42000
     - path: src/stages/train.py
       hash: md5
-      md5: 74d50057a61de99085e724fcc954b4de
-      size: 2245
+      md5: df9e5de300510b868effd6b320342a40
+      size: 2262
+    - path: src/transforms/train.py
+      hash: md5
+      md5: bbe22392b399bff68ad0d4bd4a19e652
+      size: 319
     params:
       params.yaml:
         train:
@@ -131,7 +135,7 @@ stages:
     outs:
     - path: models/weights.pt
       hash: md5
-      md5: 02aa74542efd75707e52d49a84a9111d
+      md5: 0dcfa5e0958ffccd742e32e83758e753
       size: 2437742
   evaluate:
     cmd: uv run python3 -m src.stages.evaluate --config=params.yaml
@@ -143,12 +147,16 @@ stages:
       nfiles: 42000
     - path: models/weights.pt
       hash: md5
-      md5: 02aa74542efd75707e52d49a84a9111d
+      md5: 0dcfa5e0958ffccd742e32e83758e753
       size: 2437742
     - path: src/stages/evaluate.py
       hash: md5
-      md5: e8edc09e9398a16315fa9f72deed1861
-      size: 1428
+      md5: 1014756d872ed2da62e15a0a85922341
+      size: 1448
+    - path: src/transforms/test.py
+      hash: md5
+      md5: 6c335a9691dbf09387b1471f762a343f
+      size: 175
     params:
       params.yaml:
         evaluate:
@@ -156,8 +164,8 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: bacee2eb2e14f4eab6f571d3569eb0ac
-      size: 72
+      md5: d1289a46d0373ddf6e2badfbafa32a0b
+      size: 71
   predict:
     cmd: uv run python3 -m src.stages.predict --config=params.yaml
     deps:
@@ -168,12 +176,16 @@ stages:
       nfiles: 42000
     - path: models/weights.pt
       hash: md5
-      md5: 02aa74542efd75707e52d49a84a9111d
+      md5: 0dcfa5e0958ffccd742e32e83758e753
       size: 2437742
     - path: src/stages/predict.py
       hash: md5
-      md5: faf7fa5306c9d4dacad54f2fa6015896
+      md5: 3eb95cd05bc35cb9ea7368e8798e4b2f
       size: 2810
+    - path: src/transforms/test.py
+      hash: md5
+      md5: 6c335a9691dbf09387b1471f762a343f
+      size: 175
     params:
       params.yaml:
         predict:
@@ -181,5 +193,5 @@ stages:
     outs:
     - path: reports/submission.csv
       hash: md5
-      md5: 51a642e4011659336b1004c0294f850a
+      md5: c8d7bb20e65dff173fd8a2e6468895bd
       size: 240909
