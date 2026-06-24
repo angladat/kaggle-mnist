@@ -8,8 +8,8 @@ import torch.nn as nn
 import numpy as np
 
 from src.data import get_loader, get_default_transform
-from src.models import BaselineCNN
-from src.trainer import Trainer
+from src.models import init_model
+from src.train import Trainer, get_optimizer, get_loss_fn
 
 
 def set_seed(seed: int) -> None:
@@ -52,10 +52,15 @@ def train(config_path: str) -> None:
 
     train_loader, val_loader = get_loaders(config)
 
-    model = BaselineCNN(num_classes=10)
-    loss_fn = nn.CrossEntropyLoss()
+    model_name = config['train']['model']
+    model = init_model(model_name)
+    loss_fn_name = config['train']['loss_fn']['name']
+    loss_fn_params = config['train']['loss_fn']['params']
+    loss_fn = get_loss_fn(loss_fn_name, loss_fn_params)
+
+    optimizer_name = config['train']['optimizer']['name']
     optimizer_params = config['train']['optimizer']['params']
-    optimizer = torch.optim.Adam(model.parameters(), float(optimizer_params['lr']))
+    optimizer = get_optimizer(optimizer_name, model.parameters(), optimizer_params)
 
     trainer = Trainer(
         model=model,

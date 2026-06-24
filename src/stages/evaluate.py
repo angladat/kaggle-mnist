@@ -7,8 +7,8 @@ import torch
 import torch.nn as nn
 
 from src.data import get_loader, get_default_transform
-from src.models import get_config_model
-from src.trainer import Trainer
+from src.models import load_config_model
+from src.train import Trainer
 
 
 def evaluate(config_path: str) -> None:
@@ -29,7 +29,7 @@ def evaluate(config_path: str) -> None:
     )
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = get_config_model(config, device)
+    model = load_config_model(config, device)
     loss_fn = nn.CrossEntropyLoss()
 
     trainer = Trainer(

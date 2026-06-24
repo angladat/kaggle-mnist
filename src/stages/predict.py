@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 
 from src.data import get_default_transform
-from src.models import get_config_model
+from src.models import load_config_model
 
 
 class KaggleTestDataset(Dataset):
@@ -78,7 +78,7 @@ def predict(config_path: str) -> None:
 
     dataloader = get_data(config)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = get_config_model(config, device)
+    model = load_config_model(config, device)
     predictions = predict_data(dataloader, device, model)
 
     submission_path = Path(config['predict']['submission_path'])
