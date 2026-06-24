@@ -101,3 +101,92 @@ stages:
       md5: 4803a7f15a02d267ac1bf0b7f11bc447.dir
       size: 11557003
       nfiles: 42000
+  train:
+    cmd: uv run python3 -m src.stages.train --config=params.yaml
+    deps:
+    - path: data/splits
+      hash: md5
+      md5: 4803a7f15a02d267ac1bf0b7f11bc447.dir
+      size: 11557003
+      nfiles: 42000
+    - path: src/stages/train.py
+      hash: md5
+      md5: 07ca0087b4ba9bcf73d3affe305a31e8
+      size: 1992
+    - path: src/trainer.py
+      hash: md5
+      md5: 41067cff20515fd930845bd8fc82e92a
+      size: 2330
+    params:
+      params.yaml:
+        train:
+          seed: 42
+          model: BaselineCNN
+          loss_fn:
+            name: CrossEntropyLoss
+          optimizer:
+            name: Adam
+            params:
+              lr: 0.001
+          batch_size: 128
+          epochs: 30
+          path: models/weights.pt
+    outs:
+    - path: models/weights.pt
+      hash: md5
+      md5: f4ab570f689756a62ed0f204c38ce322
+      size: 2437742
+  evaluate:
+    cmd: uv run python3 -m src.stages.evaluate --config=params.yaml
+    deps:
+    - path: data/splits
+      hash: md5
+      md5: 4803a7f15a02d267ac1bf0b7f11bc447.dir
+      size: 11557003
+      nfiles: 42000
+    - path: models/weights.pt
+      hash: md5
+      md5: f4ab570f689756a62ed0f204c38ce322
+      size: 2437742
+    - path: src/stages/evaluate.py
+      hash: md5
+      md5: 53a5fb667883f8ec609a8313853555e1
+      size: 1530
+    - path: src/trainer.py
+      hash: md5
+      md5: 41067cff20515fd930845bd8fc82e92a
+      size: 2330
+    params:
+      params.yaml:
+        evaluate:
+          metrics_file: reports/metrics.json
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: 35049b2130a83041b47ab7f4b1c42794
+      size: 71
+  predict:
+    cmd: uv run python3 -m src.stages.predict --config=params.yaml
+    deps:
+    - path: data/splits
+      hash: md5
+      md5: 4803a7f15a02d267ac1bf0b7f11bc447.dir
+      size: 11557003
+      nfiles: 42000
+    - path: models/weights.pt
+      hash: md5
+      md5: f4ab570f689756a62ed0f204c38ce322
+      size: 2437742
+    - path: src/stages/predict.py
+      hash: md5
+      md5: de5b9ea9c8659bd92831277d1b48d149
+      size: 2400
+    params:
+      params.yaml:
+        predict:
+          submission_path: reports/submission.csv
+    outs:
+    - path: reports/submission.csv
+      hash: md5
+      md5: 8d2992a3770ce26218b1657b010418b4
+      size: 240909

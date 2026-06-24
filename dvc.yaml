@@ -39,3 +39,37 @@ stages:
       - data/saved
     outs:
       - data/splits
+
+  train:
+    cmd: uv run python3 -m src.stages.train --config=params.yaml
+    params:
+      - train
+    deps:
+      - src/stages/train.py
+      - src/trainer.py
+      - data/splits
+    outs:
+      - models/weights.pt
+
+  evaluate:
+    cmd: uv run python3 -m src.stages.evaluate --config=params.yaml
+    params:
+      - evaluate
+    deps:
+      - src/stages/evaluate.py
+      - src/trainer.py
+      - data/splits
+      - models/weights.pt
+    outs:
+      - reports/metrics.json
+
+  predict:
+    cmd: uv run python3 -m src.stages.predict --config=params.yaml
+    params:
+      - predict
+    deps:
+      - src/stages/predict.py
+      - data/splits
+      - models/weights.pt
+    outs:
+      - reports/submission.csv

@@ -9,3 +9,23 @@ split:
   seed: 42
   val_size: 0.15
   test_size: 0.15
+
+train:
+  seed: 42
+  model: BaselineCNN
+  loss_fn:
+    name:
+      CrossEntropyLoss
+  optimizer:
+    name: Adam
+    params:
+      lr: 1e-3
+  batch_size: 128
+  epochs: 30
+  path: models/weights.pt
+
+evaluate:
+  metrics_file: reports/metrics.json
+
+predict:
+  submission_path: reports/submission.csv
