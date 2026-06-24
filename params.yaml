@@ -22,7 +22,7 @@ train:
     params:
       lr: 0.001
   batch_size: 128
-  epochs: 30
+  epochs: 100
   path: models/weights.pt
 
 evaluate:
