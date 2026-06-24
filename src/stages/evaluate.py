@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 
 from src.data import get_loader, get_default_transform
-from src.models import BaselineCNN
+from src.models import get_config_model
 from src.trainer import Trainer
 
 
@@ -28,13 +28,8 @@ def evaluate(config_path: str) -> None:
         batch_size=config['train']['batch_size'],
     )
 
-    model = BaselineCNN(num_classes=10)
-    model.load_state_dict(
-        torch.load(
-            config['train']['path'],
-            map_location="cuda" if torch.cuda.is_available() else "cpu"
-        )
-    )
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = get_config_model(config, device)
     loss_fn = nn.CrossEntropyLoss()
 
     trainer = Trainer(

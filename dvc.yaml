@@ -1,3 +1,6 @@
+metrics:
+  - reports/metrics.json
+
 stages:
 
   download_data:
