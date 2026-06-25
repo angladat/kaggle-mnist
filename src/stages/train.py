@@ -7,7 +7,7 @@ import torch
 import numpy as np
 
 from src.data import get_loader
-from src.transforms import get_test_transform
+from src.transforms import get_test_transform, get_train_transform
 from src.models import init_model
 from src.train import Trainer, get_optimizer, get_loss_fn, get_scheduler
 
@@ -23,7 +23,7 @@ def get_loaders(config) -> tuple:
     splits_dir = Path(config['data']['splits'])
     train_loader = get_loader(
         split_path=splits_dir/ "train",
-        transform=get_test_transform(),
+        transform=get_train_transform(),
         batch_size=config['train']['batch_size'],
         shuffle=True,
         seed=config['train']['seed']
@@ -35,7 +35,6 @@ def get_loaders(config) -> tuple:
         seed=config['train']['seed']
     )
     return train_loader, val_loader
-
 
 
 def train(config_path: str) -> None:

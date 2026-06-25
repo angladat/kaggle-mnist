@@ -111,12 +111,12 @@ stages:
       nfiles: 42000
     - path: src/stages/train.py
       hash: md5
-      md5: 824cc083cbbffdc3ec5000146e2d037c
-      size: 2569
+      md5: aa62abae1802958c40f046fffeba6bf0
+      size: 2590
     - path: src/transforms/train.py
       hash: md5
-      md5: bbe22392b399bff68ad0d4bd4a19e652
-      size: 319
+      md5: 5b30746a0b8a7d7d77a4ce1e555a0657
+      size: 335
     params:
       params.yaml:
         train:
@@ -142,11 +142,11 @@ stages:
     outs:
     - path: models/best.pt
       hash: md5
-      md5: f6b21a2673d15103d3f0a4cd987fce4d
+      md5: 925167743602dfbddbf16928e2a6d8a7
       size: 2436007
     - path: models/final.pt
       hash: md5
-      md5: b5e588ed495f1e526ca42ef182d673cb
+      md5: 9d24bd5299c8a5ffa1f46785647f3059
       size: 2436052
   evaluate:
     cmd: uv run python3 -m src.stages.evaluate --config=params.yaml
@@ -158,7 +158,7 @@ stages:
       nfiles: 42000
     - path: models/best.pt
       hash: md5
-      md5: f6b21a2673d15103d3f0a4cd987fce4d
+      md5: 925167743602dfbddbf16928e2a6d8a7
       size: 2436007
     - path: src/stages/evaluate.py
       hash: md5
@@ -175,8 +175,8 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: 614f81acf15c84bcc091bb918eeb95ce
-      size: 72
+      md5: 246d4c243e05e24c5ebcd4675e09681b
+      size: 71
   predict:
     cmd: uv run python3 -m src.stages.predict --config=params.yaml
     deps:
@@ -187,7 +187,7 @@ stages:
       nfiles: 42000
     - path: models/best.pt
       hash: md5
-      md5: f6b21a2673d15103d3f0a4cd987fce4d
+      md5: 925167743602dfbddbf16928e2a6d8a7
       size: 2436007
     - path: src/stages/predict.py
       hash: md5
@@ -204,5 +204,5 @@ stages:
     outs:
     - path: reports/submission.csv
       hash: md5
-      md5: 1b6290c993d4c6cd94cf3d0b2b8f2f46
+      md5: 729f0c2192c057b1ec2c2e0220c6775a
       size: 240909
