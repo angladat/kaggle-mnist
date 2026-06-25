@@ -111,8 +111,8 @@ stages:
       nfiles: 42000
     - path: src/stages/train.py
       hash: md5
-      md5: 68fe0a8d408a4ae547d9af77f87e424f
-      size: 2327
+      md5: 824cc083cbbffdc3ec5000146e2d037c
+      size: 2569
     - path: src/transforms/train.py
       hash: md5
       md5: bbe22392b399bff68ad0d4bd4a19e652
@@ -130,6 +130,11 @@ stages:
             params:
               lr: 0.001
               weight_decay: 0.0001
+          scheduler:
+            name: CosineAnnealingLR
+            params:
+              T_max: 100
+              eta_min: 1e-06
           batch_size: 128
           epochs: 100
           path: models/final.pt
@@ -137,11 +142,11 @@ stages:
     outs:
     - path: models/best.pt
       hash: md5
-      md5: 074c6758e42ca45921047bea78f2cd11
+      md5: f6b21a2673d15103d3f0a4cd987fce4d
       size: 2436007
     - path: models/final.pt
       hash: md5
-      md5: 813a4d478d05a4ebd55a9f57374490c2
+      md5: b5e588ed495f1e526ca42ef182d673cb
       size: 2436052
   evaluate:
     cmd: uv run python3 -m src.stages.evaluate --config=params.yaml
@@ -153,7 +158,7 @@ stages:
       nfiles: 42000
     - path: models/best.pt
       hash: md5
-      md5: 074c6758e42ca45921047bea78f2cd11
+      md5: f6b21a2673d15103d3f0a4cd987fce4d
       size: 2436007
     - path: src/stages/evaluate.py
       hash: md5
@@ -170,8 +175,8 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: c723972bd7f8861668a66841068261cd
-      size: 71
+      md5: 614f81acf15c84bcc091bb918eeb95ce
+      size: 72
   predict:
     cmd: uv run python3 -m src.stages.predict --config=params.yaml
     deps:
@@ -182,7 +187,7 @@ stages:
       nfiles: 42000
     - path: models/best.pt
       hash: md5
-      md5: 074c6758e42ca45921047bea78f2cd11
+      md5: f6b21a2673d15103d3f0a4cd987fce4d
       size: 2436007
     - path: src/stages/predict.py
       hash: md5
@@ -199,5 +204,5 @@ stages:
     outs:
     - path: reports/submission.csv
       hash: md5
-      md5: 7876d45b921b819fa881db8a9c47927d
+      md5: 1b6290c993d4c6cd94cf3d0b2b8f2f46
       size: 240909

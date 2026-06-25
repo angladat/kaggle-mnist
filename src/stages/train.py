@@ -4,13 +4,12 @@ from pathlib import Path
 
 import yaml
 import torch
-import torch.nn as nn
 import numpy as np
 
 from src.data import get_loader
 from src.transforms import get_test_transform
 from src.models import init_model
-from src.train import Trainer, get_optimizer, get_loss_fn
+from src.train import Trainer, get_optimizer, get_loss_fn, get_scheduler
 
 
 def set_seed(seed: int) -> None:
@@ -62,6 +61,11 @@ def train(config_path: str) -> None:
     optimizer_name = config['train']['optimizer']['name']
     optimizer_params = config['train']['optimizer']['params']
     optimizer = get_optimizer(optimizer_name, model.parameters(), optimizer_params)
+    
+    scheduler = None
+    scheduler_name = config['train']['scheduler']['name']
+    if scheduler_name is not None:
+        scheduler = get_scheduler(scheduler_name, config['train']['scheduler']['params'], optimizer)
 
     trainer = Trainer(
         model=model,
@@ -69,6 +73,7 @@ def train(config_path: str) -> None:
         val_loader=val_loader,
         loss_fn=loss_fn,
         optimizer=optimizer,
+        scheduler=scheduler,
         best_checkpoint_path=Path(config['train']['best_path']),
     )
 

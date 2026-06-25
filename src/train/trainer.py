@@ -12,6 +12,7 @@ class Trainer:
             val_loader,
             loss_fn,
             optimizer,
+            scheduler = None,
             best_checkpoint_path: Path | None = None,
         ) -> None:
         """Инициализация"""
@@ -21,6 +22,7 @@ class Trainer:
         self.val_loader = val_loader
         self.loss_fn = loss_fn
         self.optimizer = optimizer
+        self.scheduler = scheduler
 
         self.best_acc = 0
         self.best_checkpoint_path = best_checkpoint_path
@@ -46,6 +48,9 @@ class Trainer:
             total_loss += loss.item() * images.size(0)
             correct += (logits.argmax(dim=1) == labels).sum().item()
             total += labels.size(0)
+
+        if self.scheduler is not None:
+            self.scheduler.step()
 
         return total_loss / total, correct / total
 

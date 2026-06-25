@@ -49,13 +49,6 @@ uv run dvc repro train
 
 Adjust hyperparameters (model, optimizer, batch size, epochs, train/val/test split, etc.) in [`params.yaml`](params.yaml).
 
-## Results
-
-Current metrics ([`reports/metrics.json`](reports/metrics.json)):
-
-- Test accuracy: **99.38%**
-- Test loss: 0.0281
-
 Predictions for submission are written to `reports/submission.csv`.
 
 ## Project structure

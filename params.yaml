@@ -22,6 +22,11 @@ train:
     params:
       lr: 0.001
       weight_decay: 0.0001
+  scheduler: 
+    name: CosineAnnealingLR
+    params:
+      T_max: 100
+      eta_min: 1e-6
   batch_size: 128
   epochs: 100
   path: models/final.pt
