@@ -12,6 +12,7 @@ class Trainer:
             val_loader,
             loss_fn,
             optimizer,
+            best_checkpoint_path: Path | None = None,
         ) -> None:
         """Инициализация"""
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -20,6 +21,9 @@ class Trainer:
         self.val_loader = val_loader
         self.loss_fn = loss_fn
         self.optimizer = optimizer
+
+        self.best_acc = 0
+        self.best_checkpoint_path = best_checkpoint_path
 
     def train_one_epoch(self):
         self.model.train()
@@ -70,6 +74,10 @@ class Trainer:
         for epoch in range(epochs):
             train_loss, train_acc = self.train_one_epoch()
             val_loss, val_acc = self.evaluate()
+
+            if val_acc > self.best_acc and self.best_checkpoint_path is not None:
+                self.save_checkpoint(self.best_checkpoint_path)
+                self.best_acc = val_acc
 
             if progress:
                 print(

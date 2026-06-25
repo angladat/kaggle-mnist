@@ -5,6 +5,7 @@ import torch
 
 OPTIMIZERS = {
     "Adam" : torch.optim.Adam,
+    "AdamW" : torch.optim.AdamW,
 }
 
 

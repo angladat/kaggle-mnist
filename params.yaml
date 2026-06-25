@@ -18,12 +18,14 @@ train:
       CrossEntropyLoss
     params:
   optimizer:
-    name: Adam
+    name: AdamW
     params:
       lr: 0.001
+      weight_decay: 0.0001
   batch_size: 128
   epochs: 100
-  path: models/weights.pt
+  path: models/final.pt
+  best_path: models/best.pt
 
 evaluate:
   metrics_file: reports/metrics.json

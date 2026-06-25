@@ -69,6 +69,7 @@ def train(config_path: str) -> None:
         val_loader=val_loader,
         loss_fn=loss_fn,
         optimizer=optimizer,
+        best_checkpoint_path=Path(config['train']['best_path']),
     )
 
     trainer.fit(epochs=config['train']['epochs'], progress=True)

@@ -27,6 +27,6 @@ def load_model(name: str, weights_path: str, device: str, params: dict | None = 
 
 def load_config_model(config: dict, device) -> torch.nn.Module:
     model_name = config['train']['model']
-    weights_path = config['train']['path']
+    weights_path = config['train']['best_path']
     model = load_model(model_name, weights_path, device)
     return model

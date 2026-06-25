@@ -52,7 +52,8 @@ stages:
       - src/transforms/train.py
       - data/splits
     outs:
-      - models/weights.pt
+      - models/final.pt
+      - models/best.pt
 
   evaluate:
     cmd: uv run python3 -m src.stages.evaluate --config=params.yaml
@@ -62,7 +63,7 @@ stages:
       - src/stages/evaluate.py
       - src/transforms/test.py
       - data/splits
-      - models/weights.pt
+      - models/best.pt
     outs:
       - reports/metrics.json
 
@@ -74,6 +75,6 @@ stages:
       - src/stages/predict.py
       - src/transforms/test.py
       - data/splits
-      - models/weights.pt
+      - models/best.pt
     outs:
       - reports/submission.csv
