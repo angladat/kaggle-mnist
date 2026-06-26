@@ -25,10 +25,10 @@ train:
   scheduler: 
     name: CosineAnnealingLR
     params:
-      T_max: 100
+      T_max: 130
       eta_min: 1e-6
   batch_size: 128
-  epochs: 100
+  epochs: 130
   path: models/final.pt
   best_path: models/best.pt
 
